@@ -7,7 +7,7 @@ describe('Service Cannel opening', () => {
       .type('***');
   });
   it('enter password', () => {
-    cy.get('#Password')
+    cy.get('#Password') //privyay
       .type('***');
     cy.get('#LoginBtn').click();
     cy.get('.ui-button').click();
