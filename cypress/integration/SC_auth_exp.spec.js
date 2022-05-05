@@ -25,7 +25,7 @@ describe('Service Cannel opening', () => {
       cy.get('.ui-button').click();
     });
 
-    const fileName = 'EM_AssetSummaryReport_04-21-2022.xls';
+    const fileName = 'EM_AssetSummaryReport_05-05-2022.xls';
 
     const downloadsFolder = Cypress.config('downloadsFolder');
     const downloadedFilename = path.join(downloadsFolder, fileName);
@@ -42,13 +42,13 @@ describe('Service Cannel opening', () => {
 describe('convert data to Json', () => 
 { it('read data from xcel', () =>
  { 
-   cy.parseXlsx('cypress/fixtures/EM_AssetSummaryReport_05-04-2022.xslx').then( (jsonData) =>
+   cy.parseXlsx('cypress/fixtures/EM_AssetSummaryReport_05-05-2022.xls').then( (jsonData) =>
     { const rowLength = Cypress.$(jsonData[0].data).length
        for (let index = 0; index < rowLength; index++)
         { 
           var jsonData = jsonData[index].data 
           console.log(jsonData[index].data)
-          cy.writeFile("cypress/fixtures/EM_AssetSummaryReport_05-04-2022.json", {username:jsonData[0][0], password:jsonData[0][1]})
+          cy.writeFile("cypress/fixtures/EM_AssetSummaryReport_05-05-2022.json", {username:jsonData[0][0], password:jsonData[0][1]})
         }
     })
  })
