@@ -31,19 +31,21 @@ describe('Service Cannel opening', () => {
     const downloadedFilename = path.join(downloadsFolder, fileName);
     console.log(downloadedFilename);
 
-    // cy.wait(3000);
-    // cy
-    //   .readFile(downloadedFilename, 'binary', { timeout: 15000 })
-    //   .then((pdfDownloaded) => {
-    //     cy.fixture(fileName, 'binary', { timeout: 15000 }).then((pdfFixture) => {
-    //       expect(pdfDownloaded).to.deep.equal(pdfFixture);
-    //     })
-    //   });
+    cy.wait(3000);
+    cy
+      .readFile(downloadedFilename, 'binary', { timeout: 15000 })
+      .then((pdfDownloaded) => {
+        cy.fixture(fileName, 'binary', { timeout: 15000 }).then((pdfFixture) => {
+          expect(pdfDownloaded).to.deep.equal(pdfFixture);
+        })
+      });
   });
 });
-describe('convert data to Json', () => {
+describe.only('convert data to Json', () => {
   it('read data from xcel', () => {
     cy.parseXlsx('cypress/fixtures/EM_AssetSummaryReport_05-05-2022.xls').then((jsonData) => {
+      console.log(jsonData);
+      console.log(jsonData[0].data[0]);
       const rowLength = Cypress.$(jsonData[0].data).length
       for (let index = 0; index < rowLength; index++) {
         var jsonData = jsonData[index].data
@@ -52,4 +54,5 @@ describe('convert data to Json', () => {
       }
     })
   })
-})       
+})    
+   
