@@ -10,7 +10,7 @@ describe('Service Cannel opening', () => {
   });
   it('enter password', () => {
     cy.get('#Password')
-  
+
       .type(Cypress.env('password'));
     cy.get('#LoginBtn').click();
   });
@@ -29,27 +29,27 @@ describe('Service Cannel opening', () => {
 
     const downloadsFolder = Cypress.config('downloadsFolder');
     const downloadedFilename = path.join(downloadsFolder, fileName);
+    console.log(downloadedFilename);
 
-    cy
-        .readFile(downloadedFilename, 'binary', {timeout: 15000})
-        .then((pdfDownloaded) => {
-            cy.fixture(fileName, 'binary', {timeout: 15000}).then((pdfFixture) => {
-                expect(pdfDownloaded).to.deep.equal(pdfFixture);
-            })
-        });
+    // cy.wait(3000);
+    // cy
+    //   .readFile(downloadedFilename, 'binary', { timeout: 15000 })
+    //   .then((pdfDownloaded) => {
+    //     cy.fixture(fileName, 'binary', { timeout: 15000 }).then((pdfFixture) => {
+    //       expect(pdfDownloaded).to.deep.equal(pdfFixture);
+    //     })
+    //   });
+  });
 });
-});
-describe('convert data to Json', () => 
-{ it('read data from xcel', () =>
- { 
-   cy.parseXlsx('cypress/fixtures/EM_AssetSummaryReport_05-05-2022.xls').then( (jsonData) =>
-    { const rowLength = Cypress.$(jsonData[0].data).length
-       for (let index = 0; index < rowLength; index++)
-        { 
-          var jsonData = jsonData[index].data 
-          console.log(jsonData[index].data)
-          cy.writeFile("cypress/fixtures/EM_AssetSummaryReport_05-05-2022.json", {username:jsonData[0][0], password:jsonData[0][1]})
-        }
+describe('convert data to Json', () => {
+  it('read data from xcel', () => {
+    cy.parseXlsx('cypress/fixtures/EM_AssetSummaryReport_05-05-2022.xls').then((jsonData) => {
+      const rowLength = Cypress.$(jsonData[0].data).length
+      for (let index = 0; index < rowLength; index++) {
+        var jsonData = jsonData[index].data
+        console.log(jsonData[index].data)
+        cy.writeFile("cypress/fixtures/EM_AssetSummaryReport_05-05-2022.json", { username: jsonData[0][0], password: jsonData[0][1] })
+      }
     })
- })
+  })
 })       
