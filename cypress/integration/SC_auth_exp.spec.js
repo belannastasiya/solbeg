@@ -32,27 +32,19 @@ describe('Service Cannel opening', () => {
     console.log(downloadedFilename);
 
     cy.wait(3000);
-    cy
-      .readFile(downloadedFilename, 'binary', { timeout: 15000 })
-      .then((pdfDownloaded) => {
-        cy.fixture(fileName, 'binary', { timeout: 15000 }).then((pdfFixture) => {
-          expect(pdfDownloaded).to.deep.equal(pdfFixture);
+    cy.parseXlsx(downloadedFilename).then((jsonDataDownloaded) => {
+
+      cy.parseXlsx('cypress/fixtures/EM_AssetSummaryReport_05-05-2022.xls').then((jsonDataFixtures) => {
+
+          const headerFix = jsonDataFixtures[0].data[0];
+          const headerDow = jsonDataDownloaded[0].data[0];
+          expect(headerFix).to.deep.equal(headerDow);
+          expect(headerFix).lessThan(headerDow)
+          
+
         })
       });
   });
 });
-describe.only('convert data to Json', () => {
-  it('read data from xcel', () => {
-    cy.parseXlsx('cypress/fixtures/EM_AssetSummaryReport_05-05-2022.xls').then((jsonData) => {
-      console.log(jsonData);
-      console.log(jsonData[0].data[0]);
-      const rowLength = Cypress.$(jsonData[0].data).length
-      for (let index = 0; index < rowLength; index++) {
-        var jsonData = jsonData[index].data
-        console.log(jsonData[index].data)
-        cy.writeFile("cypress/fixtures/EM_AssetSummaryReport_05-05-2022.json", { username: jsonData[0][0], password: jsonData[0][1] })
-      }
-    })
-  })
-})    
-   
+
+
