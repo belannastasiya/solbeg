@@ -27,3 +27,18 @@
 // require('cypress-downloadfile/lib/downloadFileCommand')
 
 require('cypress-downloadfile/lib/downloadFileCommand');
+Cypress.Commands.add("parseXlsx", (inputFile) => {
+    return cy.task('parseXlsx', {filePath: inputFile})
+});
+const fs = require('fs');
+const XLSX = require('xlsx');
+
+const read = ({file, sheet}) => {
+   const buf = fs.readFileSync(file);
+   const workbook = XLSX.read(buf, { type: 'buffer' });
+   const rows = XLSX.utils.sheet_to_json(workbook.Sheets[sheet]);
+   return rows
+}
+Cypress.Commands.add("parseXlsx", (inputFile) => {
+    return cy.task('parseXlsx', { filePath: inputFile })
+    });

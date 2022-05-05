@@ -25,3 +25,42 @@ const {downloadFile} = require('cypress-downloadfile/lib/addPlugin');
 module.exports = (on, config) => {
   on('task', {downloadFile})
 };
+module.exports = (on, config) => {
+  const xlsx = require('node-xlsx').default;
+  const fs = require ('fs'); //for the title
+  const path = require('path')//for title path
+  module.exports = (on, config)=>{
+    on('task', {parseXlsx({filePath})
+  {return new Permise ((resolve, reject)=>
+    {try
+      {
+        const jsonData = xlsx.parse(fs.readFileSync(filePath));
+        resolve(jsonData);
+    }  catch (e)
+    {
+      reject(e);
+    }
+  });
+}});
+  
+  const readXlsx = require('./read-xlsx')
+  module.exports = (on, config)=> {
+    on('task', {
+      'readXlsx': readXlsx.read
+    })
+  }}}
+  const xlsx = require('node-xlsx').default; 
+const fs = require('fs'); // for file
+const path = require('path'); // for file path
+module.exports = (on, config) => {
+   on('task', { parseXlsx({ filePath }) 
+   { return new Promise((resolve, reject) =>
+     { try 
+      {
+         const jsonData = xlsx.parse(fs.readFileSync(filePath)); 
+         resolve(jsonData);
+         } catch (e) 
+         {
+            reject(e);
+         } });
+       }}); } 
