@@ -25,26 +25,34 @@ describe('Service Cannel opening', () => {
       cy.get('.ui-button').click();
     });
 
-    const fileName = 'EM_AssetSummaryReport_05-05-2022.xls';
+    const fileName = 'EM_AssetSummaryReport_05-17-2022.xls';
 
     const downloadsFolder = Cypress.config('downloadsFolder');
     const downloadedFilename = path.join(downloadsFolder, fileName);
     console.log(downloadedFilename);
 
     cy.wait(3000);
+
     cy.parseXlsx(downloadedFilename).then((jsonDataDownloaded) => {
 
-      cy.parseXlsx('cypress/fixtures/EM_AssetSummaryReport_05-05-2022.xls').then((jsonDataFixtures) => {
+      cy.parseXlsx('C:/Cypress/projects/cypress/fixtures/EM_AssetSummaryReport_05-17-2022.xls').then((jsonDataFixtures) => {
+        console.log(jsonDataFixtures, jsonDataDownloaded);
 
-          const headerFix = jsonDataFixtures[0].data[0];
-          const headerDow = jsonDataDownloaded[0].data[0];
-          expect(headerFix).to.deep.equal(headerDow);
-          expect(headerFix).lessThan(headerDow)
-          
+        const headerDow = jsonDataDownloaded[0].data[0];
+        expect(headerFix).to.deep.equal(headerDow);
+        expect(headerFix).lessThan(headerDow);
+        expect(jsonDataDownloaded).contain("EM_AssetSummaryReport");
 
-        })
+
       });
+      var file1 = "D.xsl";
+      var file2 = "S.xsl";
+      getFileExtension(file1); //returns xsl
+      getFileExtension(file2); //returns doc
+
+      function getFileExtension(filename) {
+        /*TODO*/
+      }
+    });
   });
 });
-
-
