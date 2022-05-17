@@ -49,6 +49,11 @@ module.exports = (on, config) => {
       'readXlsx': readXlsx.read
     })
   }}}
+  const { isFileExist } = require('cy-verify-downloads');
+
+module.exports = (on, config) => {
+  on('task', { isFileExist })
+}
   const xlsx = require('node-xlsx').default; 
 const fs = require('fs'); // for file
 const path = require('path'); // for file path

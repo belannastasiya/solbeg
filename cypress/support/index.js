@@ -18,6 +18,10 @@ import './commands'
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
+const {downloadFile} = require('cypress-downloadfile/lib/addPlugin')
+module.exports = (on, config) => {
+  on('task', {downloadFile})
+}
 const xlsx = require('node-xlsx').default; 
 const fs = require('fs'); // for file
 const path = require('path'); // for file path

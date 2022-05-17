@@ -32,8 +32,16 @@ describe('Service Cannel opening', () => {
     console.log(downloadedFilename);
 
     cy.wait(3000);
+    
+    const fs = require('fs');
 
+on('task', {
+  downloads:  (downloadspath) => {
+    return fs.readdirSync(downloadspath)
+  }
+})
     cy.parseXlsx(downloadedFilename).then((jsonDataDownloaded) => {
+      expect(jsonDataDownloaded).contains ("EM_AssetSummaryReport");
 
       cy.parseXlsx('C:/Cypress/projects/cypress/fixtures/EM_AssetSummaryReport_05-17-2022.xls').then((jsonDataFixtures) => {
         console.log(jsonDataFixtures, jsonDataDownloaded);
@@ -42,13 +50,15 @@ describe('Service Cannel opening', () => {
         expect(headerFix).to.deep.equal(headerDow);
         expect(headerFix).lessThan(headerDow);
         expect(jsonDataDownloaded).contain("EM_AssetSummaryReport");
-
+       
 
       });
-      var file1 = "D.xsl";
-      var file2 = "S.xsl";
-      getFileExtension(file1); //returns xsl
-      getFileExtension(file2); //returns doc
+      // str.split("C:/Cypress/projects/cypress/fixtures/EM_AssetSummaryReport_05-17-2022.xls".split(/(\\|\/)/g).pop()
+
+      // var file1 = "D.xsl";
+      // var file2 = "S.xsl";
+      // getFileExtension(file1); //returns xsl
+      // getFileExtension(file2); //returns 
 
       function getFileExtension(filename) {
         /*TODO*/
